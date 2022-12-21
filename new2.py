@@ -5,14 +5,13 @@ from variaveis import cont_pessoas
 
 GPIO.setmode(GPIO.BCM)
 
-saidas = [26, 19, 13, 6, 5]
-
-entrada_janela = 9
-entrada_porta = 10
-entrada_contagem_entrada = 22
-entrada_contagem_saida = 27
-entrada_fumaca = 11
-entrada_presenca = 0
+saidas = [18, 23, 24, 25, 8]
+entrada_janela = 12
+entrada_porta = 16
+entrada_contagem_entrada = 20
+entrada_contagem_saida = 21
+entrada_fumaca = 1
+entrada_presenca = 7
 
 var_entrada_janela = 0
 var_entrada_porta = 0
@@ -21,7 +20,7 @@ var_entrada_presenca = 0
 var_entrada_contagem_entrada = 0
 var_entrada_contagem_saida = 0
 
-var_temperatura = adafruit_dht.DHT22(board.D18, use_pulseio=False)
+var_temperatura = adafruit_dht.DHT22(board.D4, use_pulseio=False)
 
 saida_estados = [0,0,0,0,0]
 
@@ -36,11 +35,10 @@ def sensorSaidaPessoa(GPIO_IN):
 
 def sistemaAlarme():
 	GPIO.output(saidas[4], GPIO.HIGH)
-	print("Alarme ativado!\n")
 
 def doisSegundos(var_temperatura):
 	while 1:
-		sleep(5)
+		sleep(6)
 		temperatura(var_temperatura)
 
 def temperatura(var_temperatura):
@@ -97,9 +95,8 @@ def sensorFumaca(channel):
 	print(channel)
 	if var_entrada_fumaca == 0:
 		var_entrada_fumaca = 1
-		print("Sensor de fumaca ativado - O alarme esta disparando! \n\n")
+		print("Sensor de fumaca ativado - \n\n")
 		sistemaAlarme()
-		
 	else:
 		var_entrada_fumaca = 0
 

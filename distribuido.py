@@ -3,12 +3,10 @@ import new
 from new import var_temperatura, doisSegundos
 
 HOST = sys.argv[-1]
-PORT = 10654
+PORT = 10672
 
 global cont_pessoas
 cont_pessoas = 0
-
-new.passHost(HOST)
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -18,6 +16,7 @@ tcp.connect(dest)
 
 def menu():
 	print("Seja bem-vindo ao menu!\n")
+	#new.passHost(HOST)
 	while 1:
 
 		print("\n\n--- Menu ---\n\nO que voce quer fazer?")
@@ -28,7 +27,6 @@ def menu():
 		msg = int(input())
 		tcp.send(str(msg).encode())
 
-		print (msg)
 		if msg == 1:
 			print("\nDigite o numero abaixo que corresponde ao que voce quer.\n\n")
 
@@ -48,18 +46,30 @@ def menu():
 			print("10 - Desligar alarme\n")
 
 			print("11 - Ligar todos os dispositivos")
-			print("10 - Desligar todos os alarmes\n")
+			print("12 - Desligar todos os alarmes\n")
 
 			msg2 = int(input())
 			tcp.send(str(msg2).encode())
 
-			new.ligaDesligaLPA(msg2)
+			
+			if ((HOST[-1] == '6' and HOST[-2] == '1') or (HOST[-1] == '8')):
+				new2.ligaDesligaLPA(msg2)
+
+			else:
+				new.ligaDesligaLPA(msg2)
 		
 		if msg == 2:
 			print("\nEsses sao os estados atuais das saidas:\n\n")
-			new.estadoSaidas()
+			if ((HOST[-1] == '6' and HOST[-2] == '1') or (HOST[-1] == '8')):
+				new2.estadoSaidas()
+			else:
+				new.estadoSaidas()
+
 			print("\nE esses sao os estados atuais das entradas (sensores):\n\n")
-			new.estadosEntradas()
+			if ((HOST[-1] == '6' and HOST[-2] == '1') or (HOST[-1] == '8')):
+				new2.estadosEntradas()
+			else:
+				new.estadosEntradas()
 
 thread1 = threading.Thread(target=doisSegundos, args=(var_temperatura,))
 thread1.start()
