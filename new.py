@@ -26,7 +26,8 @@ var_temperatura = adafruit_dht.DHT22(board.D18, use_pulseio=False)
 saida_estados = [0,0,0,0,0]
 
 def passHost(host):
-	if ((host[-1] == "6" and host[-2] == "1") or (host[-1] == 8)):
+	if ((host[-1] == '6' and host[-2] == '1') or (host[-1] == '8')):
+		print("\n\nDKDWKDWKADWAKODAWI\n\n")
 		saidas = [18, 23, 24, 25, 8]
 		entrada_janela = 12
 		entrada_porta = 16
@@ -34,10 +35,14 @@ def passHost(host):
 		entrada_contagem_saida = 21
 		entrada_fumaca = 1
 		entrada_presenca = 7
+	else:
+		print("\n\nsBURRO\n\n")
+		print(type(host[-1]))
 
 def sensorEntradaPessoa(GPIO_IN):
 	global cont_pessoas 
 	cont_pessoas += 1
+	print("Entrou uma pessoa. Total de: ", cont_pessoas)
 
 def sensorSaidaPessoa(GPIO_IN):
 	global cont_pessoas 
@@ -102,12 +107,15 @@ def sensorPorta(channel):
 
 def sensorFumaca(channel):
 	global var_entrada_fumaca
+	print(channel)
 	if var_entrada_fumaca == 0:
 		var_entrada_fumaca = 1
 		print("Sensor de fumaca ativado - \n\n")
 		sistemaAlarme()
 	else:
 		var_entrada_fumaca = 0
+
+print(entrada_fumaca)
 		
 GPIO.setup(saidas, GPIO.OUT)
 

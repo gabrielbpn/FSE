@@ -2,7 +2,7 @@ import socket, sys
 
 HOST = sys.argv[-1]
 
-PORT = 10654
+PORT = 10671
 
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
